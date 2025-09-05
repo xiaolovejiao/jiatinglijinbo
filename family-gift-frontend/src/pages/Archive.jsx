@@ -34,6 +34,7 @@ import {
 import { useAuth } from '../hooks/useAuth.jsx';
 import { useNavigate } from 'react-router-dom';
 import NetworkSpeedCard from '../components/NetworkSpeedCard';
+import { apiRequest } from '../config/api';
 
 const Archive = () => {
   const [family, setFamily] = useState(null);
@@ -101,18 +102,14 @@ const Archive = () => {
 
   const fetchFamilyData = async () => {
     try {
-      const response = await fetch('/api/families', {
-        credentials: 'include'
-      });
+      const response = await apiRequest('/api/families');
       if (response.ok) {
         const data = await response.json();
         const familyInfo = data.family;
         
         // 获取家庭成员列表
         if (familyInfo && familyInfo.id) {
-          const membersResponse = await fetch(`/api/families/${familyInfo.id}/members`, {
-            credentials: 'include'
-          });
+          const membersResponse = await apiRequest(`/api/families/${familyInfo.id}/members`);
           if (membersResponse.ok) {
             const membersData = await membersResponse.json();
             familyInfo.members = membersData.members || [];
@@ -135,18 +132,14 @@ const Archive = () => {
     setLoading(true);
     try {
       // 获取总体分析数据
-      const overviewResponse = await fetch(`/api/families/${family.id}/analysis/total`, {
-        credentials: 'include'
-      });
+      const overviewResponse = await apiRequest(`/api/families/${family.id}/analysis/total`);
       if (overviewResponse.ok) {
         const data = await overviewResponse.json();
         setOverview(data);
       }
 
       // 获取所有记录用于分析
-      const allRecordsResponse = await fetch(`/api/families/${family.id}/records`, {
-        credentials: 'include'
-      });
+      const allRecordsResponse = await apiRequest(`/api/families/${family.id}/records`);
       let allRecords = [];
       if (allRecordsResponse.ok) {
         const data = await allRecordsResponse.json();
@@ -463,9 +456,7 @@ const Archive = () => {
     }
     
     try {
-      const response = await fetch(`/api/users/${userId}`, {
-        credentials: 'include'
-      });
+      const response = await apiRequest(`/api/users/${userId}`);
       if (response.ok) {
         const data = await response.json();
         const creator = data.user;

@@ -9,6 +9,7 @@ import { Label } from '../components/ui/label';
 import { Alert, AlertDescription } from '../components/ui/alert';
 import { User, Lock, Trash2, Shield, LogOut, Edit, Camera, Upload, Check, X, Mail, Calendar, Save, Star, Bell } from 'lucide-react';
 import ErrorModal from '../components/ErrorModal';
+import { apiRequest } from '../utils/api';
 
 const Profile = () => {
   const { user, logout, updateUser } = useAuth();
@@ -372,12 +373,11 @@ const Profile = () => {
       const formData = new FormData();
       formData.append('avatar', avatarFile);
 
-      const response = await fetch('/api/user/upload-avatar', {
+      const response = await apiRequest('/api/user/upload-avatar', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
         },
-        credentials: 'include',
         body: formData
       });
 
@@ -412,12 +412,8 @@ const Profile = () => {
   // 处理删除请求的函数
   const handleDeleteRequest = async (action, messageId) => {
     try {
-      const response = await fetch(`/api/notifications/${messageId}/delete-response`, {
+      const response = await apiRequest(`/api/notifications/${messageId}/delete-response`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
         body: JSON.stringify({ action }),
       });
       
@@ -470,13 +466,11 @@ const Profile = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/user/update-profile', {
+      const response = await apiRequest('/api/user/update-profile', {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        credentials: 'include',
         body: JSON.stringify({
           bio: formData.bio,
           nickname: formData.nickname
@@ -530,12 +524,8 @@ const Profile = () => {
 
     setLoading(true);
     try {
-      const response = await fetch('/api/change-password', {
+      const response = await apiRequest('/api/change-password', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
         body: JSON.stringify({
           old_password: formData.old_password,
           new_password: formData.new_password,
@@ -591,12 +581,8 @@ const Profile = () => {
     setShowDeleteAccountConfirmDialog(false);
     setLoading(true);
     try {
-      const response = await fetch('/api/delete-account', {
+      const response = await apiRequest('/api/delete-account', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
         body: JSON.stringify({
           password: formData.delete_password,
           security_answer: formData.delete_security_answer
