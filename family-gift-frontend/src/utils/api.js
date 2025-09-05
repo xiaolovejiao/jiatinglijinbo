@@ -1,12 +1,8 @@
 // API配置
 const getApiBaseUrl = () => {
-  // 在生产环境中使用环境变量，开发环境使用代理
-  if (import.meta.env.PROD) {
-    return import.meta.env.VITE_API_BASE_URL || 'https://jiatinglijinbo-production.up.railway.app';
-  }
-  // 开发环境使用Vite代理，直接返回空字符串
-  return '';
-}
+  // 所有环境都直接使用Railway后端地址
+  return import.meta.env.VITE_API_BASE_URL || 'https://jiatinglijinbo-production.up.railway.app';
+};
 
 export const API_BASE_URL = getApiBaseUrl();
 
