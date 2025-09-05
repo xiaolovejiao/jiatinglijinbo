@@ -1,6 +1,10 @@
 [build]
 builder = "nixpacks"
+buildCommand = "npm install"
 watchPatterns = ["**/*.js", "**/*.json"]
+
+[nixpacks]
+providers = ["node"]
 
 [deploy]
 startCommand = "npm start"
