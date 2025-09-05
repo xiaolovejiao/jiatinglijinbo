@@ -50,9 +50,11 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-// 创建uploads目录
-const uploadsDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadsDir)) {
+// Vercel环境适配：使用临时目录或禁用文件上传
+const uploadsDir = process.env.VERCEL ? '/tmp/uploads' : path.join(__dirname, 'uploads');
+if (!process.env.VERCEL && !fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+} else if (process.env.VERCEL && !fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
@@ -87,8 +89,9 @@ const upload = multer({
   }
 });
 
-// 数据库初始化
-const db = new sqlite3.Database('./family_gift.db');
+// 数据库初始化 - Vercel环境适配
+const dbPath = process.env.VERCEL ? '/tmp/family_gift.db' : './family_gift.db';
+const db = new sqlite3.Database(dbPath);
 
 // 创建用户表
 db.serialize(() => {
