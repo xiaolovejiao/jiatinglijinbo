@@ -7,10 +7,7 @@
     "install-backend": "cd family-gift-backend && npm install",
     "install-frontend": "cd family-gift-frontend && npm install"
   },
-  "workspaces": [
-    "family-gift-backend",
-    "family-gift-frontend"
-  ],
+
   "engines": {
     "node": ">=18.0.0"
   }
