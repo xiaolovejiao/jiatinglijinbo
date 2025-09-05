@@ -142,9 +142,9 @@ const AdminDashboard = () => {
     setLoading(true);
     try {
       const [statsRes, usersRes, familiesRes] = await Promise.all([
-        fetch('/api/admin/stats', { credentials: 'include' }),
-        fetch('/api/admin/users', { credentials: 'include' }),
-        fetch('/api/admin/families', { credentials: 'include' })
+        apiRequest('/api/admin/stats'),
+        apiRequest('/api/admin/users'),
+        apiRequest('/api/admin/families')
       ]);
 
       // 检查认证状态
@@ -671,9 +671,8 @@ const AdminDashboard = () => {
     if (!familyToDelete) return;
 
     try {
-      const response = await fetch(`/api/admin/families/${familyToDelete}`, {
-        method: 'DELETE',
-        credentials: 'include'
+      const response = await apiRequest(`/api/admin/families/${familyToDelete}`, {
+        method: 'DELETE'
       });
 
       if (response.ok) {
@@ -705,12 +704,8 @@ const AdminDashboard = () => {
         ? { userIds: itemsToDelete }
         : { familyIds: itemsToDelete };
       
-      const response = await fetch(`/api/admin/${endpoint}/batch-delete`, {
+      const response = await apiRequest(`/api/admin/${endpoint}/batch-delete`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        credentials: 'include',
         body: JSON.stringify(requestBody)
       });
 

@@ -121,9 +121,7 @@ const AllRecords = () => {
       console.log('开始获取记录，家庭ID:', family.id);
       setLoading(true);
       try {
-        const response = await fetch(`/api/families/${family.id}/records`, {
-          credentials: 'include'
-        });
+        const response = await apiRequest(`/api/families/${family.id}/records`);
         console.log('记录响应状态:', response.status);
         if (response.ok) {
           const data = await response.json();

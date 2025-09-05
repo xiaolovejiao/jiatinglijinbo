@@ -154,9 +154,7 @@ const Center = () => {
   const fetchFamilyData = async () => {
     try {
       // 获取家庭信息
-      const familyResponse = await fetch('/api/families', {
-        credentials: 'include'
-      });
+      const familyResponse = await apiRequest('/api/families');
 
       if (familyResponse.ok) {
         const familyData = await familyResponse.json();
@@ -164,9 +162,7 @@ const Center = () => {
         setNewFamilyName(familyData.family.family_name);
 
         // 获取总体分析数据
-        const analysisResponse = await fetch(`/api/families/${familyData.family.id}/analysis/total`, {
-          credentials: 'include'
-        });
+        const analysisResponse = await apiRequest(`/api/families/${familyData.family.id}/analysis/total`);
 
         if (analysisResponse.ok) {
           const analysisData = await analysisResponse.json();
@@ -188,9 +184,7 @@ const Center = () => {
         }
 
         // 获取家庭成员
-        const membersResponse = await fetch(`/api/families/${familyData.family.id}/members`, {
-          credentials: 'include'
-        });
+        const membersResponse = await apiRequest(`/api/families/${familyData.family.id}/members`);
 
         if (membersResponse.ok) {
           const membersData = await membersResponse.json();
@@ -198,9 +192,7 @@ const Center = () => {
         }
 
         // 获取所有记录用于统计
-        const recordsResponse = await fetch(`/api/families/${familyData.family.id}/records`, {
-          credentials: 'include'
-        });
+        const recordsResponse = await apiRequest(`/api/families/${familyData.family.id}/records`);
 
         if (recordsResponse.ok) {
           const recordsData = await recordsResponse.json();
@@ -265,10 +257,8 @@ const Center = () => {
           }));
         }
 
-        // 获取热门趋势分析数据
-        const analyticsResponse = await fetch(`/api/families/${familyData.family.id}/analytics`, {
-          credentials: 'include'
-        });
+        // 获取分析数据
+        const analyticsResponse = await apiRequest(`/api/families/${familyData.family.id}/analytics`);
 
         if (analyticsResponse.ok) {
           const analyticsResult = await analyticsResponse.json();
@@ -325,9 +315,7 @@ const Center = () => {
     }
     
     try {
-      const response = await fetch(`/api/users/${userId}`, {
-        credentials: 'include'
-      });
+      const response = await apiRequest(`/api/users/${userId}`);
       if (response.ok) {
         const data = await response.json();
         const creator = data.user;
@@ -579,12 +567,8 @@ const Center = () => {
     setError('');
 
     try {
-      const response = await fetch('/api/families', {
+      const response = await apiRequest('/api/families', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
         body: JSON.stringify({ family_name: familyName }),
       });
 
@@ -612,12 +596,8 @@ const Center = () => {
     setError('');
 
     try {
-      const response = await fetch('/api/families/join', {
+      const response = await apiRequest('/api/families/join', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
         body: JSON.stringify({ family_id_code: familyIdCode }),
       });
 
@@ -646,12 +626,8 @@ const Center = () => {
     }
 
     try {
-      const response = await fetch(`/api/families/${family.id}`, {
+      const response = await apiRequest(`/api/families/${family.id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
         body: JSON.stringify({ family_name: newFamilyName }),
       });
 
@@ -676,9 +652,8 @@ const Center = () => {
     if (!confirm('确定要移除该成员吗？')) return;
 
     try {
-      const response = await fetch(`/api/families/${family.id}/members/${memberId}`, {
+      const response = await apiRequest(`/api/families/${family.id}/members/${memberId}`, {
         method: 'DELETE',
-        credentials: 'include',
       });
 
       if (response.ok) {
@@ -697,9 +672,8 @@ const Center = () => {
     if (!confirm('确定要退出家庭吗？')) return;
 
     try {
-      const response = await fetch(`/api/families/${family.id}/leave`, {
+      const response = await apiRequest(`/api/families/${family.id}/leave`, {
         method: 'POST',
-        credentials: 'include',
       });
 
       if (response.ok) {
@@ -1579,12 +1553,8 @@ const Center = () => {
                         if (inviteUsername.trim()) {
                           setLoading(true);
                           try {
-                            const response = await fetch(`/api/families/${family.id}/invite`, {
+                            const response = await apiRequest(`/api/families/${family.id}/invite`, {
                               method: 'POST',
-                              headers: {
-                                'Content-Type': 'application/json',
-                              },
-                              credentials: 'include',
                               body: JSON.stringify({ username: inviteUsername.trim() }),
                             });
                             
