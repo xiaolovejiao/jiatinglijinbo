@@ -1,0 +1,17 @@
+{
+  "name": "family-gift-monorepo",
+  "version": "1.0.0",
+  "description": "家庭礼金簿项目",
+  "scripts": {
+    "start": "cd family-gift-backend && npm start",
+    "install-backend": "cd family-gift-backend && npm install",
+    "install-frontend": "cd family-gift-frontend && npm install"
+  },
+  "workspaces": [
+    "family-gift-backend",
+    "family-gift-frontend"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
