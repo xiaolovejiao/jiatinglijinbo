@@ -12,7 +12,7 @@
       "src": "family-gift-frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist"
+        "distDir": "family-gift-frontend/dist"
       }
     }
   ],
@@ -22,12 +22,8 @@
       "dest": "family-gift-backend/server.js"
     },
     {
-      "src": "/(.*\\.(js|css|ico|png|jpg|jpeg|gif|svg))",
-      "dest": "family-gift-frontend/dist/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "family-gift-frontend/dist/index.html"
+      "dest": "/index.html"
     }
   ],
   "env": {
