@@ -19,6 +19,7 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
   'https://jiatinglijinbo.vercel.app',
+  'https://jiatinglijinbo2025.vercel.app',
   /\.vercel\.app$/  // 允许所有Vercel子域名
 ];
 
