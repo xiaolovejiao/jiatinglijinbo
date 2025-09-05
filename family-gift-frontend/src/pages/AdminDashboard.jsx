@@ -39,6 +39,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useVersion } from '../contexts/VersionContext.jsx';
 import SystemTerminalModal from '../components/SystemTerminalModal';
 import TechSuccessModal from '../components/TechSuccessModal';
+import { apiRequest } from '../config/api';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -542,7 +543,7 @@ const AdminDashboard = () => {
   // 检测后端和数据库状态函数（不检测网络）
   const checkBackendStatus = async () => {
     try {
-      const response = await fetch('/api/health', {
+      const response = await apiRequest('/api/health', {
         method: 'GET',
         cache: 'no-cache',
         signal: AbortSignal.timeout(3000)

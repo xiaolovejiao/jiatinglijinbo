@@ -28,30 +28,30 @@ const Layout = () => {
     if (unreadMessages > 0) {
       // 优先跳转到记录消息板块，如果记录消息没有未读消息，则按顺序检查其他板块
       if (notifications.records.unread > 0) {
-        navigate('/profile?tab=messages&category=records&mode=unread');
+        navigate('/app/profile?tab=messages&category=records&mode=unread');
       } else if (notifications.delete_request.unread > 0) {
-        navigate('/profile?tab=messages&category=delete_request&mode=unread');
+        navigate('/app/profile?tab=messages&category=delete_request&mode=unread');
       } else if (notifications.family.unread > 0) {
-        navigate('/profile?tab=messages&category=family&mode=unread');
+        navigate('/app/profile?tab=messages&category=family&mode=unread');
       } else if (notifications.system.unread > 0) {
-        navigate('/profile?tab=messages&category=system&mode=unread');
+        navigate('/app/profile?tab=messages&category=system&mode=unread');
       } else {
         // 默认跳转到记录消息板块
-        navigate('/profile?tab=messages&category=records&mode=unread');
+        navigate('/app/profile?tab=messages&category=records&mode=unread');
       }
     } else {
       // 没有未读消息时，默认跳转到记录消息板块
-      navigate('/profile?tab=messages&category=records');
+      navigate('/app/profile?tab=messages&category=records');
     }
   };
 
 
 
   const navigationItems = [
-    { path: '/center', label: '礼金簿中心', icon: Home },
-    { path: '/record', label: '智能记录', icon: PlusCircle },
-    { path: '/archive', label: '数据档案', icon: BarChart3 },
-    { path: '/profile', label: '个人中心', icon: User },
+    { path: '/app/center', label: '礼金簿中心', icon: Home },
+    { path: '/app/record', label: '智能记录', icon: PlusCircle },
+    { path: '/app/archive', label: '数据档案', icon: BarChart3 },
+    { path: '/app/profile', label: '个人中心', icon: User },
   ];
 
 
