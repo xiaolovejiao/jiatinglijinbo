@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
+import { apiRequest } from '../config/api';
 
 const NotificationContext = createContext();
 
@@ -32,12 +33,8 @@ export const NotificationProvider = ({ children }) => {
     
     try {
       setLoading(true);
-      const response = await fetch('/api/notifications', {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+      const response = await apiRequest('/api/notifications', {
+        method: 'GET'
       });
       
       console.log('消息通知API响应状态:', response.status);

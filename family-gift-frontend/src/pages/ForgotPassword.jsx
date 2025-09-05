@@ -8,6 +8,7 @@ import { Alert, AlertDescription } from '../components/ui/alert';
 import { Progress } from '../components/ui/progress';
 import { Eye, EyeOff, CheckCircle, XCircle } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth.jsx';
+import { apiRequest } from '../config/api';
 
 const ForgotPassword = () => {
   const [step, setStep] = useState(1); // 1: 输入用户名, 2: 回答密保问题, 3: 重置密码
@@ -69,13 +70,9 @@ const ForgotPassword = () => {
 
     setLoading(true);
     try {
-      const response = await fetch('/api/forgot-password', {
+      const response = await apiRequest('/api/forgot-password', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ username: formData.username }),
+        body: JSON.stringify({ username: formData.username })
       });
 
       const data = await response.json();
@@ -116,17 +113,13 @@ const ForgotPassword = () => {
 
     setLoading(true);
     try {
-      const response = await fetch('/api/reset-password', {
+      const response = await apiRequest('/api/reset-password', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
         body: JSON.stringify({
           username: formData.username,
           securityAnswer: formData.security_answer,
           newPassword: formData.new_password
-        }),
+        })
       });
 
       const data = await response.json();

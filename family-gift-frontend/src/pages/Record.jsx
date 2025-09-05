@@ -27,6 +27,7 @@ import {
   X
 } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth.jsx';
+import { apiRequest } from '../config/api';
 
 const Record = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -80,9 +81,7 @@ const Record = () => {
 
   const fetchFamilyData = async () => {
     try {
-      const response = await fetch('/api/families', {
-        credentials: 'include'
-      });
+      const response = await apiRequest('/api/families');
       if (response.ok) {
         const data = await response.json();
         setFamily(data.family);
@@ -146,19 +145,15 @@ const Record = () => {
         ? -Math.abs(parseFloat(formData.amount))
         : Math.abs(parseFloat(formData.amount));
 
-      const response = await fetch(`/api/families/${family.id}/records`, {
+      const response = await apiRequest(`/api/families/${family.id}/records`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
         body: JSON.stringify({
           amount: amount,
           type: selectedEvent,
           related_person: selectedRelation,
           description: formData.notes ? `${formData.person_name} - ${formData.notes}` : formData.person_name,
           event_date: formData.event_date
-        }),
+        })
       });
 
       const data = await response.json();
