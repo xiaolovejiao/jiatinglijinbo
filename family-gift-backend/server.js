@@ -14,13 +14,15 @@ const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'family-gift-secret-key-2024';
 
 // 中间件
-// CORS配置 - 支持本地开发和Vercel部署
+// CORS配置 - 支持本地开发、Vercel前端和Railway后端
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
   'https://jiatinglijinbo.vercel.app',
   'https://jiatinglijinbo2025.vercel.app',
-  /\.vercel\.app$/  // 允许所有Vercel子域名
+  /\.vercel\.app$/,  // 允许所有Vercel子域名
+  /\.railway\.app$/,  // 允许所有Railway子域名
+  /\.up\.railway\.app$/  // Railway的新域名格式
 ];
 
 app.use(cors({
@@ -50,11 +52,9 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-// Vercel环境适配：使用临时目录或禁用文件上传
-const uploadsDir = process.env.VERCEL ? '/tmp/uploads' : path.join(__dirname, 'uploads');
-if (!process.env.VERCEL && !fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-} else if (process.env.VERCEL && !fs.existsSync(uploadsDir)) {
+// 文件上传目录配置
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
@@ -89,8 +89,8 @@ const upload = multer({
   }
 });
 
-// 数据库初始化 - Vercel环境适配
-const dbPath = process.env.VERCEL ? '/tmp/family_gift.db' : './family_gift.db';
+// 数据库初始化
+const dbPath = './family_gift.db';
 const db = new sqlite3.Database(dbPath);
 
 // 创建用户表
