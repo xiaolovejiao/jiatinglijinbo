@@ -14,8 +14,36 @@ const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'family-gift-secret-key-2024';
 
 // 中间件
+// CORS配置 - 支持本地开发和Vercel部署
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'https://jiatinglijinbo.vercel.app',
+  /\.vercel\.app$/  // 允许所有Vercel子域名
+];
+
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174'],
+  origin: function (origin, callback) {
+    // 允许没有origin的请求（如移动应用）
+    if (!origin) return callback(null, true);
+    
+    // 检查origin是否在允许列表中
+    const isAllowed = allowedOrigins.some(allowedOrigin => {
+      if (typeof allowedOrigin === 'string') {
+        return origin === allowedOrigin;
+      }
+      if (allowedOrigin instanceof RegExp) {
+        return allowedOrigin.test(origin);
+      }
+      return false;
+    });
+    
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 app.use(express.json());
@@ -2910,23 +2938,28 @@ app.post('/api/notifications/:notificationId/delete-response', authenticateToken
   });
 });
 
-// 启动服务器
-app.listen(PORT, () => {
-  console.log(`🚀 家庭礼金簿后端服务已启动`);
-  console.log(`📍 服务地址: http://localhost:${PORT}`);
-  console.log(`🔗 API文档: http://localhost:${PORT}/api/health`);
-  console.log(`💾 数据库: SQLite (family_gift.db)`);
-});
+// 导出app供Vercel使用
+module.exports = app;
 
-// 优雅关闭
-process.on('SIGINT', () => {
-  console.log('\n正在关闭服务器...');
-  db.close((err) => {
-    if (err) {
-      console.error('关闭数据库连接时出错:', err.message);
-    } else {
-      console.log('数据库连接已关闭');
-    }
-    process.exit(0);
+// 本地开发时启动服务器
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🚀 家庭礼金簿后端服务已启动`);
+    console.log(`📍 服务地址: http://localhost:${PORT}`);
+    console.log(`🔗 API文档: http://localhost:${PORT}/api/health`);
+    console.log(`💾 数据库: SQLite (family_gift.db)`);
   });
-});
+
+  // 优雅关闭
+  process.on('SIGINT', () => {
+    console.log('\n正在关闭服务器...');
+    db.close((err) => {
+      if (err) {
+        console.error('关闭数据库连接时出错:', err.message);
+      } else {
+        console.log('数据库连接已关闭');
+      }
+      process.exit(0);
+    });
+  });
+}
