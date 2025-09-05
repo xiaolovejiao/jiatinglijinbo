@@ -49,6 +49,7 @@ import {
 import { useAuth } from '../hooks/useAuth.jsx';
 import { useVersion } from '../contexts/VersionContext.jsx';
 import SmartInsightsCard from '../components/SmartInsightsCard';
+import { apiRequest } from '../config/api';
 
 const Center = () => {
   const { versionInfo } = useVersion();
@@ -836,7 +837,7 @@ const Center = () => {
   // 检测后端和数据库状态函数（不检测网络）
   const checkBackendStatus = async () => {
     try {
-      const response = await fetch('/api/health', {
+      const response = await apiRequest('/api/health', {
         method: 'GET',
         cache: 'no-cache',
         signal: AbortSignal.timeout(3000)

@@ -4,6 +4,7 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { StatusIndicator } from '../components/ui/status-indicator';
 import { User, Settings, Crown, Shield } from 'lucide-react';
+import { apiRequest } from '../config/api';
 
 const Console = () => {
   const navigate = useNavigate();
@@ -350,9 +351,9 @@ const Console = () => {
       const speedScore = await checkNetworkSpeed();
       
       // 检测后端API状态
-      const response = await fetch('/api/health', {
+      const response = await apiRequest('/api/health', {
         method: 'GET',
-        timeout: 5000
+        signal: AbortSignal.timeout(5000)
       });
       
       if (response.ok) {

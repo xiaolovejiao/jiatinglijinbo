@@ -1,4 +1,5 @@
 import { useState, useEffect, createContext, useContext } from 'react';
+import { apiRequest } from '../config/api';
 
 const AuthContext = createContext();
 
@@ -17,9 +18,8 @@ export const AuthProvider = ({ children }) => {
   // 刷新token
   const refreshToken = async () => {
     try {
-      const response = await fetch("/api/refresh-token", {
-        method: "POST",
-        credentials: "include"
+      const response = await apiRequest("/api/refresh-token", {
+        method: "POST"
       });
       
       if (response.ok) {
@@ -36,9 +36,7 @@ export const AuthProvider = ({ children }) => {
   // 检查当前用户状态
   const checkAuth = async () => {
     try {
-      const response = await fetch("/api/me", {
-        credentials: "include"
-      });
+      const response = await apiRequest("/api/me", {});
       
       if (response.ok) {
         const data = await response.json();
@@ -48,9 +46,7 @@ export const AuthProvider = ({ children }) => {
         const refreshSuccess = await refreshToken();
         if (refreshSuccess) {
           // 刷新成功，重新检查用户状态
-          const retryResponse = await fetch("/api/me", {
-            credentials: "include"
-          });
+          const retryResponse = await apiRequest("/api/me", {});
           if (retryResponse.ok) {
             const retryData = await retryResponse.json();
             setUser(retryData.user);
@@ -74,12 +70,8 @@ export const AuthProvider = ({ children }) => {
   // 登录
   const login = async (username, password) => {
     try {
-      const response = await fetch("/api/login", {
+      const response = await apiRequest("/api/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
         body: JSON.stringify({ username, password }),
       });
 
@@ -100,12 +92,8 @@ export const AuthProvider = ({ children }) => {
   // 注册
   const register = async (userData) => {
     try {
-      const response = await fetch("/api/register", {
+      const response = await apiRequest("/api/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
         body: JSON.stringify(userData),
       });
 
@@ -126,9 +114,8 @@ export const AuthProvider = ({ children }) => {
   // 注销
   const logout = async () => {
     try {
-      await fetch("/api/logout", {
-        method: "POST",
-        credentials: "include",
+      await apiRequest("/api/logout", {
+        method: "POST"
       });
     } catch (error) {
       console.error("Logout failed:", error);
@@ -227,12 +214,8 @@ export const AuthProvider = ({ children }) => {
   const adminLogin = async (adminUser) => {
     try {
       // 发送请求到后端进行认证
-      const response = await fetch("/api/admin/login", {
+      const response = await apiRequest("/api/admin/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
         body: JSON.stringify({ 
           username: adminUser.username,
           isAdmin: true,
