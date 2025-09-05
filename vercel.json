@@ -22,6 +22,14 @@
       "dest": "family-gift-backend/server.js"
     },
     {
+      "src": "/assets/(.*)",
+      "dest": "family-gift-frontend/dist/assets/$1"
+    },
+    {
+      "src": "/(.*\\.(js|css|ico|png|jpg|jpeg|gif|svg))",
+      "dest": "family-gift-frontend/dist/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "family-gift-frontend/dist/index.html"
     }
