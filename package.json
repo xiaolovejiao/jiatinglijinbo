@@ -12,6 +12,6 @@
     "family-gift-frontend"
   ],
   "engines": {
-    "node": "20.x"
+    "node": ">=16.0.0"
   }
 }
