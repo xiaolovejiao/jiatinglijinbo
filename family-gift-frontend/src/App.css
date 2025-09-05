@@ -1,0 +1,736 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Tailwind CSS v4 syntax - suppress VS Code warnings */
+/* @custom-variant is a valid Tailwind CSS v4 directive */
+/* cspell:disable-next-line */
+@custom-variant dark (&:is(.dark *));
+
+/* @theme is a valid Tailwind CSS v4 directive */
+/* cspell:disable-next-line */
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.4 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.65 0.15 29);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.9 0 0);
+  --input: oklch(0.9 0 0);
+  --ring: oklch(0.205 0 0);
+  --chart-1: oklch(0.65 0.15 29);
+  --chart-2: oklch(0.7 0.14 154);
+  --chart-3: oklch(0.8 0.14 83);
+  --chart-4: oklch(0.65 0.15 200);
+  --chart-5: oklch(0.75 0.1 60);
+}
+
+/* 自定义样式优化 */
+body {
+  background: linear-gradient(135deg, rgb(30 58 138) 0%, rgb(67 56 202) 50%, rgb(30 58 138) 100%);
+  min-height: 100vh;
+}
+
+/* 导航卡片悬停效果 */
+.nav-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* 按钮悬停效果 */
+.btn-primary {
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+/* 卡片阴影优化 */
+.card-enhanced {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.card-enhanced:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* 图表容器优化 */
+.chart-container {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* 统计卡片动画 */
+.stat-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* 表单输入框优化 */
+.form-input {
+  transition: all 0.3s ease;
+  border: 2px solid #e5e7eb;
+}
+
+.form-input:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* 加载动画 */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 渐入动画 */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 流光特效动画 */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+  .nav-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .chart-container {
+    padding: 15px;
+  }
+  
+  .stat-card {
+    padding: 16px;
+  }
+}
+
+/* 隐藏滚动条 */
+.scrollbar-hide {
+  /* 隐藏滚动条但保持滚动功能 */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
+/* 礼金薄概览卡片hover效果 */
+.hover-card:has(.hover\:shadow-3xl:hover) {
+  transform: scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border-color: rgba(251, 191, 36, 0.5);
+}
+
+.hover-card:has(.hover\:shadow-3xl:hover) .group-hover\:from-amber-400\/12 {
+  background: linear-gradient(to bottom right, rgba(251, 191, 36, 0.12), rgba(234, 179, 8, 0.1), rgba(234, 88, 12, 0.12));
+}
+
+/* 日期输入框日历图标位置调整 */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: relative;
+  right: 20px;
+  cursor: pointer;
+}
+
+/* 日期选择器弹出面板样式 */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 2px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  opacity: 0.7;
+  position: relative;
+  right: 20px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 为日期输入框添加深色主题支持 */
+input[type="date"] {
+  color-scheme: dark;
+}
+
+/* 日期选择器弹出日历面板的深色主题样式 */
+input[type="date"]::-webkit-datetime-edit {
+  background: transparent;
+  color: white;
+  padding: 0;
+}
+
+/* 隐藏日期输入框的内部调节按钮 */
+input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+/* 隐藏数字输入框的上下调节按钮 */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox浏览器隐藏数字输入框的上下调节按钮 */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* 步骤指示器特效 */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.8);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
+    transform: scale(1.05);
+  }
+}
+
+/* 科幻能量流动动画 */
+@keyframes energy-flow {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes energy-flow-delayed {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+/* 电弧闪烁动画 */
+@keyframes electric-arc {
+  0%, 90%, 100% {
+    opacity: 0;
+    transform: scale(0.8) rotate(0deg);
+  }
+  5%, 15% {
+    opacity: 1;
+    transform: scale(1) rotate(2deg);
+  }
+  10% {
+    opacity: 0.7;
+    transform: scale(1.1) rotate(-1deg);
+  }
+}
+
+@keyframes electric-spark {
+  0%, 85%, 100% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  3%, 8% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1);
+  }
+  12% {
+    opacity: 0.6;
+    transform: translateY(2px) scale(0.8);
+  }
+}
+
+/* 第一个电弧动画 */
+@keyframes electric-arc-1 {
+  0%, 92%, 100% {
+    opacity: 0;
+    transform: scaleY(0.3) rotate(-2deg);
+    height: 8px;
+  }
+  2%, 6% {
+    opacity: 1;
+    transform: scaleY(1.2) rotate(3deg);
+    height: 12px;
+  }
+  4% {
+    opacity: 0.8;
+    transform: scaleY(1) rotate(-1deg);
+    height: 10px;
+  }
+  8%, 12% {
+    opacity: 0.6;
+    transform: scaleY(0.8) rotate(2deg);
+    height: 9px;
+  }
+}
+
+/* 第二个电弧动画 */
+@keyframes electric-arc-2 {
+  0%, 88%, 100% {
+    opacity: 0;
+    transform: scaleY(0.4) rotate(1deg);
+    height: 6px;
+  }
+  3%, 7% {
+    opacity: 1;
+    transform: scaleY(1.3) rotate(-2deg);
+    height: 9px;
+  }
+  5% {
+    opacity: 0.9;
+    transform: scaleY(1.1) rotate(1deg);
+    height: 8px;
+  }
+  9%, 14% {
+    opacity: 0.5;
+    transform: scaleY(0.7) rotate(-1deg);
+    height: 7px;
+  }
+}
+
+/* 电弧闪烁动画 */
+@keyframes electric-arcs {
+  0%, 100% {
+    background-image: 
+      radial-gradient(ellipse 3px 8px at 20% -8px, rgba(0, 255, 255, 0.3) 0%, transparent 70%),
+      radial-gradient(ellipse 2px 6px at 45% -6px, rgba(255, 255, 255, 0.2) 0%, transparent 70%),
+      radial-gradient(ellipse 4px 10px at 70% -10px, rgba(0, 255, 255, 0.1) 0%, transparent 70%),
+      radial-gradient(ellipse 2px 5px at 30% calc(100% + 5px), rgba(0, 255, 255, 0.2) 0%, transparent 70%),
+      radial-gradient(ellipse 3px 7px at 60% calc(100% + 7px), rgba(255, 255, 255, 0.1) 0%, transparent 70%),
+      radial-gradient(ellipse 2px 4px at 85% calc(100% + 4px), rgba(0, 255, 255, 0.1) 0%, transparent 70%),
+      linear-gradient(90deg, 
+        rgba(30, 58, 138, 0.8) 0%, 
+        rgba(59, 130, 246, 0.9) 50%, 
+        rgba(30, 58, 138, 0.8) 100%
+      );
+  }
+  5%, 8% {
+    background-image: 
+      radial-gradient(ellipse 4px 12px at 22% -12px, rgba(0, 255, 255, 1) 0%, transparent 60%),
+      radial-gradient(ellipse 3px 9px at 47% -9px, rgba(255, 255, 255, 0.9) 0%, transparent 60%),
+      radial-gradient(ellipse 2px 6px at 68% -6px, rgba(0, 255, 255, 0.4) 0%, transparent 70%),
+      radial-gradient(ellipse 3px 8px at 32% calc(100% + 8px), rgba(0, 255, 255, 0.9) 0%, transparent 60%),
+      radial-gradient(ellipse 2px 5px at 58% calc(100% + 5px), rgba(255, 255, 255, 0.3) 0%, transparent 70%),
+      radial-gradient(ellipse 3px 6px at 87% calc(100% + 6px), rgba(0, 255, 255, 0.7) 0%, transparent 60%),
+      linear-gradient(90deg, 
+        rgba(30, 58, 138, 0.8) 0%, 
+        rgba(59, 130, 246, 0.9) 50%, 
+        rgba(30, 58, 138, 0.8) 100%
+      );
+  }
+  15%, 18% {
+    background-image: 
+      radial-gradient(ellipse 2px 5px at 18% -5px, rgba(0, 255, 255, 0.6) 0%, transparent 70%),
+      radial-gradient(ellipse 4px 11px at 43% -11px, rgba(255, 255, 255, 1) 0%, transparent 50%),
+      radial-gradient(ellipse 5px 14px at 72% -14px, rgba(0, 255, 255, 0.8) 0%, transparent 60%),
+      radial-gradient(ellipse 2px 4px at 28% calc(100% + 4px), rgba(0, 255, 255, 0.5) 0%, transparent 70%),
+      radial-gradient(ellipse 4px 9px at 62% calc(100% + 9px), rgba(255, 255, 255, 0.8) 0%, transparent 60%),
+      radial-gradient(ellipse 2px 3px at 83% calc(100% + 3px), rgba(0, 255, 255, 0.4) 0%, transparent 70%),
+      linear-gradient(90deg, 
+        rgba(30, 58, 138, 0.8) 0%, 
+        rgba(59, 130, 246, 0.9) 50%, 
+        rgba(30, 58, 138, 0.8) 100%
+      );
+  }
+  35%, 38% {
+    background-image: 
+      radial-gradient(ellipse 3px 7px at 25% -7px, rgba(0, 255, 255, 0.8) 0%, transparent 60%),
+      radial-gradient(ellipse 2px 4px at 50% -4px, rgba(255, 255, 255, 0.5) 0%, transparent 70%),
+      radial-gradient(ellipse 3px 8px at 75% -8px, rgba(0, 255, 255, 0.6) 0%, transparent 60%),
+      radial-gradient(ellipse 4px 10px at 35% calc(100% + 10px), rgba(0, 255, 255, 1) 0%, transparent 50%),
+      radial-gradient(ellipse 2px 5px at 65% calc(100% + 5px), rgba(255, 255, 255, 0.6) 0%, transparent 70%),
+      radial-gradient(ellipse 3px 7px at 90% calc(100% + 7px), rgba(0, 255, 255, 0.5) 0%, transparent 70%),
+      linear-gradient(90deg, 
+        rgba(30, 58, 138, 0.8) 0%, 
+        rgba(59, 130, 246, 0.9) 50%, 
+        rgba(30, 58, 138, 0.8) 100%
+      );
+  }
+}
+
+/* 电流放电动画 */
+@keyframes electric-discharge {
+  0%, 100% {
+    box-shadow: 
+      0 0 25px rgba(59, 130, 246, 0.9),
+      0 0 50px rgba(59, 130, 246, 0.5),
+      0 0 75px rgba(0, 255, 255, 0.3),
+      inset 0 0 18px rgba(147, 197, 253, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+      2px -8px 4px rgba(0, 255, 255, 0.6),
+      -3px 8px 6px rgba(0, 255, 255, 0.4),
+      15px -6px 3px rgba(255, 255, 255, 0.5),
+      -20px 7px 5px rgba(0, 255, 255, 0.3),
+      35px -9px 4px rgba(255, 255, 255, 0.4),
+      -45px 8px 6px rgba(0, 255, 255, 0.2);
+  }
+  25% {
+    box-shadow: 
+      0 0 30px rgba(59, 130, 246, 1),
+      0 0 60px rgba(59, 130, 246, 0.7),
+      0 0 90px rgba(0, 255, 255, 0.5),
+      inset 0 0 22px rgba(147, 197, 253, 0.8),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+      -5px -12px 8px rgba(0, 255, 255, 0.8),
+      8px 12px 10px rgba(0, 255, 255, 0.6),
+      -25px -10px 6px rgba(255, 255, 255, 0.7),
+      30px 12px 8px rgba(0, 255, 255, 0.5),
+      -40px -15px 7px rgba(255, 255, 255, 0.6),
+      50px 14px 9px rgba(0, 255, 255, 0.4);
+  }
+  50% {
+    box-shadow: 
+      0 0 35px rgba(59, 130, 246, 1.2),
+      0 0 70px rgba(59, 130, 246, 0.8),
+      0 0 105px rgba(0, 255, 255, 0.6),
+      inset 0 0 25px rgba(147, 197, 253, 1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+      10px -15px 12px rgba(0, 255, 255, 1),
+      -12px 15px 14px rgba(0, 255, 255, 0.8),
+      40px -12px 9px rgba(255, 255, 255, 0.9),
+      -50px 15px 11px rgba(0, 255, 255, 0.7),
+      60px -18px 10px rgba(255, 255, 255, 0.8),
+      -70px 16px 12px rgba(0, 255, 255, 0.6);
+  }
+  75% {
+    box-shadow: 
+      0 0 28px rgba(59, 130, 246, 0.95),
+      0 0 55px rgba(59, 130, 246, 0.6),
+      0 0 80px rgba(0, 255, 255, 0.4),
+      inset 0 0 20px rgba(147, 197, 253, 0.7),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+      -8px -10px 6px rgba(0, 255, 255, 0.7),
+      5px 10px 8px rgba(0, 255, 255, 0.5),
+      -30px -8px 5px rgba(255, 255, 255, 0.6),
+      25px 10px 7px rgba(0, 255, 255, 0.4),
+      -45px -12px 6px rgba(255, 255, 255, 0.5),
+      55px 11px 8px rgba(0, 255, 255, 0.3);
+  }
+}
+
+/* 活跃步骤的脉冲效果 */
+.step-active {
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.9), 
+    rgba(147, 197, 253, 0.8), 
+    rgba(0, 255, 255, 0.7)
+  ) !important;
+  border: 2px solid rgba(147, 197, 253, 0.6);
+  box-shadow: 
+    0 0 20px rgba(59, 130, 246, 0.6),
+    0 0 40px rgba(0, 255, 255, 0.3),
+    inset 0 0 15px rgba(255, 255, 255, 0.2);
+  animation: pulse-glow 2s infinite;
+  backdrop-filter: blur(10px);
+}
+
+/* 激活状态的进度线 - 科幻能量条效果 */
+.progress-line-active {
+  background: linear-gradient(90deg, 
+    rgba(59, 130, 246, 0.1) 0%,
+    rgba(147, 197, 253, 0.3) 50%,
+    rgba(59, 130, 246, 0.1) 100%
+  );
+  box-shadow: 
+    0 0 25px rgba(59, 130, 246, 0.9),
+    0 0 50px rgba(59, 130, 246, 0.5),
+    0 0 75px rgba(0, 255, 255, 0.3),
+    inset 0 0 18px rgba(147, 197, 253, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(147, 197, 253, 0.7);
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+  margin: 0 16px;
+  align-self: center;
+}
+
+/* 能量流动效果 - 第一层 */
+.progress-line-active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 15%,
+    rgba(0, 255, 255, 0.3) 25%,
+    rgba(96, 165, 250, 0.9) 35%,
+    rgba(147, 197, 253, 1) 45%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(147, 197, 253, 1) 55%,
+    rgba(96, 165, 250, 0.9) 65%,
+    rgba(0, 255, 255, 0.3) 75%,
+    transparent 85%,
+    transparent 100%
+  );
+  animation: energy-flow 2s linear infinite;
+  filter: blur(0.5px);
+}
+
+/* 添加内部光晕效果 - 第二层 */
+.progress-line-active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 20%,
+    rgba(0, 255, 255, 0.4) 30%,
+    rgba(255, 255, 255, 0.8) 45%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0.8) 55%,
+    rgba(0, 255, 255, 0.4) 70%,
+    transparent 80%,
+    transparent 100%
+  );
+  animation: energy-flow-delayed 1.6s linear infinite;
+  animation-delay: -0.8s;
+  filter: blur(1px);
+}
+
+/* 电弧效果 - 外部容器增强 */
+.progress-line-active {
+  position: relative;
+  box-shadow: 
+    0 0 25px rgba(59, 130, 246, 0.9),
+    0 0 50px rgba(59, 130, 246, 0.5),
+    0 0 75px rgba(0, 255, 255, 0.3),
+    inset 0 0 18px rgba(147, 197, 253, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* 电弧效果 - 使用边框创建锯齿状电弧 */
+.progress-line-active {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  background-image: 
+    /* 上方电弧 */
+    radial-gradient(ellipse 3px 8px at 20% -8px, rgba(0, 255, 255, 0.9) 0%, transparent 70%),
+    radial-gradient(ellipse 2px 6px at 45% -6px, rgba(255, 255, 255, 0.8) 0%, transparent 70%),
+    radial-gradient(ellipse 4px 10px at 70% -10px, rgba(0, 255, 255, 0.7) 0%, transparent 70%),
+    /* 下方电弧 */
+    radial-gradient(ellipse 2px 5px at 30% calc(100% + 5px), rgba(0, 255, 255, 0.8) 0%, transparent 70%),
+    radial-gradient(ellipse 3px 7px at 60% calc(100% + 7px), rgba(255, 255, 255, 0.7) 0%, transparent 70%),
+    radial-gradient(ellipse 2px 4px at 85% calc(100% + 4px), rgba(0, 255, 255, 0.6) 0%, transparent 70%),
+    /* 原有背景 */
+    linear-gradient(90deg, 
+      rgba(30, 58, 138, 0.8) 0%, 
+      rgba(59, 130, 246, 0.9) 50%, 
+      rgba(30, 58, 138, 0.8) 100%
+    );
+  background-size: 
+    100% 100%, 100% 100%, 100% 100%,
+    100% 100%, 100% 100%, 100% 100%,
+    100% 100%;
+  animation: electric-arcs 3s infinite;
+}
+
+/* 保持原有的能量流动画 */
+.progress-line-active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    transparent 20%, 
+    rgba(59, 130, 246, 0.8) 30%, 
+    rgba(147, 197, 253, 1) 50%, 
+    rgba(59, 130, 246, 0.8) 70%, 
+    transparent 80%, 
+    transparent 100%
+  );
+  border-radius: inherit;
+  animation: energy-flow 2s linear infinite;
+  filter: blur(0.5px);
+  z-index: 2;
+}
+
+.progress-line-active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    transparent 25%, 
+    rgba(0, 255, 255, 0.6) 35%, 
+    rgba(255, 255, 255, 0.9) 50%, 
+    rgba(0, 255, 255, 0.6) 65%, 
+    transparent 75%, 
+    transparent 100%
+  );
+  border-radius: inherit;
+  animation: energy-flow-delayed 1.6s linear infinite;
+  animation-delay: -0.8s;
+  filter: blur(1px);
+  z-index: 3;
+}
+
+/* 未激活连接线 */
+.progress-line-inactive {
+  background: rgba(71, 85, 105, 0.2);
+  border: 1px solid rgba(71, 85, 105, 0.3);
+  border-radius: 3px;
+  margin: 0 16px;
+  align-self: center;
+  transition: all 0.3s ease;
+}
+
+/* 已完成步骤的特殊效果 */
+.step-completed {
+  background: linear-gradient(135deg, 
+    rgba(34, 197, 94, 0.8), 
+    rgba(16, 185, 129, 0.7), 
+    rgba(6, 182, 212, 0.6)
+  );
+  border: 2px solid rgba(34, 197, 94, 0.5);
+  box-shadow: 
+    0 4px 15px rgba(34, 197, 94, 0.4),
+    0 0 25px rgba(6, 182, 212, 0.3),
+    inset 0 0 10px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.step-completed:hover {
+  transform: scale(1.1);
+  box-shadow: 
+    0 6px 20px rgba(34, 197, 94, 0.5),
+    0 0 35px rgba(6, 182, 212, 0.4),
+    inset 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* 未激活步骤 */
+.step-inactive {
+  background: rgba(71, 85, 105, 0.3);
+  color: rgba(148, 163, 184, 0.8);
+  border: 2px solid rgba(71, 85, 105, 0.4);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.2),
+    inset 0 0 8px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.step-inactive:hover {
+  background: rgba(71, 85, 105, 0.5);
+  border-color: rgba(148, 163, 184, 0.6);
+  color: rgba(203, 213, 225, 0.9);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 0 12px rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
+}
+
