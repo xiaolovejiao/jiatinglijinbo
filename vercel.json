@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "cd family-gift-frontend && npm run build",
+  "buildCommand": "cd family-gift-frontend && npm install && npm run build",
   "outputDirectory": "family-gift-frontend/dist",
   "routes": [
     {
