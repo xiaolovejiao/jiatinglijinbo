@@ -45,9 +45,9 @@ const PublicRoute = ({ children }) => {
     );
   }
 
-  // 站主用户重定向到控制台，普通用户重定向到欢迎页面
+  // 站主用户重定向到控制台，普通用户重定向到应用中心
   if (user) {
-    return (user.role === 'admin' || user.is_admin) ? <Navigate to="/console" replace /> : <Navigate to="/welcome" replace />;
+    return (user.role === 'admin' || user.is_admin) ? <Navigate to="/console" replace /> : <Navigate to="/app/center" replace />;
   }
   
   return children;
@@ -97,23 +97,25 @@ function App() {
             </ProtectedRoute>
           } />
 
+          {/* 根路径重定向到登录页面 */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
+
           {/* 受保护的路由 */}
-          <Route path="/" element={
+          <Route path="/app" element={
             <ProtectedRoute>
               <Layout />
             </ProtectedRoute>
           }>
-            <Route index element={<Navigate to="/center" replace />} />
+            <Route index element={<Navigate to="/app/center" replace />} />
             <Route path="center" element={<Center />} />
             <Route path="record" element={<Record />} />
             <Route path="archive" element={<Archive />} />
             <Route path="profile" element={<Profile />} />
             <Route path="all-records" element={<AllRecords />} />
-
           </Route>
 
           {/* 404 页面 */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
           </Router>
         </VersionProvider>
